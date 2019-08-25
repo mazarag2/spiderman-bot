@@ -1,0 +1,26 @@
+{
+  "name": "spiderman-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mazarag2/spiderman-bot.git"
+  },
+  "keywords": [
+    "spiderman",
+    "discord",
+    "bot",
+    "node",
+    "js"
+  ],
+  "author": "Mike Zaragoza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mazarag2/spiderman-bot/issues"
+  },
+  "homepage": "https://github.com/mazarag2/spiderman-bot#readme"
+}
