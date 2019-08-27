@@ -40,7 +40,7 @@ bot.on('message', async function (message) {
     }
     if (messageContents.includes('miles morales')){
 
-
+        message.channel.send('I run better than I Swing',{file : './public/milesmorales.gif'});
     }
     if(messageContents.includes('Raimi') && (messageContents.includes('sucks') || messageContents.includes('sucked'))){
 
@@ -54,7 +54,7 @@ bot.on('message', async function (message) {
      }
      if((messageContents.includes('Im') && messageContents.includes('You')) || (messageContents.includes('Im SpiderMan'))){
 
-        await message.reply('Hmm',{file : './public/spidermanPointing.jpg'});
+        await message.reply('Hmm',{file : './public/yourepointingatme.gif'});
      }
 
 
