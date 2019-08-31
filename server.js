@@ -16,13 +16,6 @@ let bot = new Discord.Client();
 
 bot.login(process.env.token);
 
-
-const {Firestore} = require('@google-cloud/firestore');
- 
-
-const firestore = new Firestore();
- 
-
 bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
@@ -30,7 +23,7 @@ bot.on('ready', function (evt) {
 });
 bot.on('message', async function (message) {
 
-    console.log(message.content);
+    
     let messageContents = message.content;
     if (messageContents.includes('spiderman')) {
        
@@ -55,6 +48,11 @@ bot.on('message', async function (message) {
      if((messageContents.includes('Im') && messageContents.includes('You')) || (messageContents.includes('Im SpiderMan'))){
 
         await message.reply('Hmm',{file : './public/yourepointingatme.gif'});
+     }
+     if(messageContents.includes('pizza')){
+
+        await message.reply(process.env.pizzaTimeURL);
+
      }
 
 
