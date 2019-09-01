@@ -25,9 +25,6 @@ let searchQuery = `spiderman`
 
 let GIPHY_ENDPOINT = process.env.GiphySearch;
 
-
-
-
 bot.on('ready',async  function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
@@ -37,12 +34,6 @@ bot.on('message', async function (message) {
 
     console.log(message.mentions._client.user.username);
     let messageContents = message.content;
-    if (messageContents.includes('spiderman')) {
-       
-        console.log('spiderman detected !');
-        console.log(`from ${message.author.username}`);
-
-    }
     if (messageContents.includes('miles morales')){
 
         message.channel.send('I run better than I Swing',{file : './public/milesmorales.gif'});
@@ -66,7 +57,7 @@ bot.on('message', async function (message) {
         await message.reply(process.env.pizzaTimeURL);
 
      }
-     if(message.mentions._client.user.username == 'spiderman-bot') {
+     if(message.isMentioned(bot.user)) {
 
         let response = await axios.get(`${GIPHY_ENDPOINT}?tag=${searchQuery}&api_key=${GIPHY_KEY}`);
         console.log(response.data.data.url);
