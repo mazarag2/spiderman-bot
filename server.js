@@ -4,6 +4,8 @@ let express = require("express");
 app = express();
 let port = process.env.PORT || 8080;
 app.listen(port);
+
+let axios = require('axios');
 var logger = require('winston');
 
 logger.remove(logger.transports.Console);
@@ -16,14 +18,24 @@ let bot = new Discord.Client();
 
 bot.login(process.env.token);
 
-bot.on('ready', function (evt) {
+
+let GIPHY_KEY = process.env.GIPHY_KEY;
+
+let searchQuery = `spiderman`
+
+let GIPHY_ENDPOINT = process.env.GiphySearch;
+
+
+
+
+bot.on('ready',async  function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
 });
 bot.on('message', async function (message) {
 
-    
+    console.log(message.mentions._client.user.username);
     let messageContents = message.content;
     if (messageContents.includes('spiderman')) {
        
@@ -54,6 +66,14 @@ bot.on('message', async function (message) {
         await message.reply(process.env.pizzaTimeURL);
 
      }
+     if(message.mentions._client.user.username == 'spiderman-bot') {
+
+        let response = await axios.get(`${GIPHY_ENDPOINT}?tag=${searchQuery}&api_key=${GIPHY_KEY}`);
+        console.log(response.data.data.url);
+        await message.reply(response.data.data.url);
+
+     }
+     
 
 
 });
