@@ -34,6 +34,12 @@ bot.on('message', async function (message) {
 
     console.log(message.mentions._client.user.username);
     let messageContents = message.content;
+    if(message.isMentioned(bot.user) && message.author.username !== 'spuderman-bot') {
+
+      let response = await axios.get(`${GIPHY_ENDPOINT}?tag=${searchQuery}&api_key=${GIPHY_KEY}`);
+      await message.channel.send(response.data.data.url);
+
+   }
     if (messageContents.includes('miles morales')){
 
         message.channel.send('I run better than I Swing',{file : './public/milesmorales.gif'});
@@ -43,27 +49,21 @@ bot.on('message', async function (message) {
         await message.reply(process.env.spidermanURL);
 
      }
-     if(messageContents.includes('CTR') && messageContents.includes('perfectly') && messageContents.includes('balanced')){
+    else if(messageContents.includes('CTR') && messageContents.includes('perfectly') && messageContents.includes('balanced')){
 
         await message.reply(process.env.spidermanURL);
 
      }
-     if((messageContents.includes('Im') && messageContents.includes('You')) || (messageContents.includes('Im SpiderMan'))){
+     else if((messageContents.includes('Im') && messageContents.includes('You')) || (messageContents.includes('Im SpiderMan'))){
 
         await message.reply('Hmm',{file : './public/yourepointingatme.gif'});
      }
-     if(messageContents.includes('pizza')){
+    else if(messageContents.includes('pizza')){
 
         await message.reply(process.env.pizzaTimeURL);
 
      }
-     if(message.isMentioned(bot.user)) {
 
-        let response = await axios.get(`${GIPHY_ENDPOINT}?tag=${searchQuery}&api_key=${GIPHY_KEY}`);
-        console.log(response.data.data.url);
-        await message.reply(response.data.data.url);
-
-     }
      
 
 
