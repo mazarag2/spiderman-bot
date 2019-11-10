@@ -34,7 +34,7 @@ bot.on('message', async function (message) {
 
     console.log(message.mentions._client.user.username);
     let messageContents = message.content;
-    if(message.isMentioned(bot.user) && message.author.username !== 'spuderman-bot') {
+    if(message.isMentioned(bot.user) && message.author.username !== 'spiderman-bot') {
 
       let response = await axios.get(`${GIPHY_ENDPOINT}?tag=${searchQuery}&api_key=${GIPHY_KEY}`);
       await message.channel.send(response.data.data.url);
