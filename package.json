@@ -26,11 +26,17 @@
   "dependencies": {
     "@google-cloud/firestore": "^2.2.8",
     "axios": "^0.19.0",
+    "chai": "^4.2.0",
     "discord.io": "^2.5.3",
     "discord.js": "^11.5.1",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
-    "nodemon": "^1.19.1",
+    "nodemon": "^1.19.4",
+    "pg": "^7.12.1",
+    "tsc": "^1.20150623.0",
     "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "esm": "^3.2.25"
   }
 }

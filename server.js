@@ -25,6 +25,9 @@ let searchQuery = `spiderman`
 
 let GIPHY_ENDPOINT = process.env.GiphySearch;
 
+let spidermanDao = require('./src/dao/spidermanDBDAO');
+let User = require('./src/domain/user');
+
 bot.on('ready',async  function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
@@ -32,8 +35,15 @@ bot.on('ready',async  function (evt) {
 });
 bot.on('message', async function (message) {
 
-    console.log(message.mentions._client.user.username);
     let messageContents = message.content;
+    if(messageContents.includes('spiderman')){
+
+        let discordUser = new User(message.author.username,message.author.id);
+        let spiderDao = new spidermanDao();
+        await spiderDao.createSpidermanEvent(discordUser,messageContents);
+        await spiderDao.updateSpiderProfile(discordUser,messageContents);
+    }
+
     if(message.isMentioned(bot.user) && message.author.username !== 'spiderman-bot') {
 
       let response = await axios.get(`${GIPHY_ENDPOINT}?tag=${searchQuery}&api_key=${GIPHY_KEY}`);
