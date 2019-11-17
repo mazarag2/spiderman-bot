@@ -3,7 +3,9 @@ install :
   - nvm install 10.16.2
   - nvm use 10.16.2
   - npm install
+  - npm install mocha -g
 script:
+
   - mocha -r esm test/domain
 after_success:
   - echo Build Succeded
