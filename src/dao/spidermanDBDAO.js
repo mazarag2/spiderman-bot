@@ -12,7 +12,7 @@ class spidermanDBDAO {
             user: process.env.spidermanUser,
             host: process.env.spidermanDBURL,
             database: process.env.spidermanDBName,
-            password: spidermanPswrd,
+            password: process.env.spidermanPswrd,
             port: process.env.spidermanDBPort
         });
        await pool.query(createUserQuery,[user.getId(),user.getName()]);
