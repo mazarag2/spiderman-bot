@@ -38,7 +38,9 @@ class spidermanDBDAO {
     }
     async getUserByName (userName){
 
-        var getUserByNameQuery = `SELECT * from public.users where name = $1`;
+        var getUserByNameQuery = `SELECT id,name,milesmorales_count,spiderman_count from public.users as users
+        inner join public.spiderprofile as spprofile on spprofile.user_id = users.id
+        where users.name = $1`;
         const dotenv = require('dotenv').config();
         let { Pool, Client } = require('pg');
         const pool = new Pool({
@@ -118,8 +120,8 @@ class spidermanDBDAO {
     async upsertUser(user) {
 
         var upsertUserQuery = `INSERT INTO public.users (id,name) VALUES($1,$2) 
-        on conflict (user_id) 
-        DO UPDATE SET name = user.name`;
+        on conflict (id) 
+        DO UPDATE SET name = users.name`;
         const dotenv = require('dotenv').config();
         let { Pool, Client } = require('pg');
         const pool = new Pool({
