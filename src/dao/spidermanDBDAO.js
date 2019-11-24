@@ -53,6 +53,27 @@ class spidermanDBDAO {
        return userResults.rows[0];
 
     }
+    async getSpiderEventbyUser(username){
+
+        var getSpiderEventByNameQuery = `SELECT * from public.spiderevent as spevent
+        inner join public.users as users on users.id = spevent.user_id
+        where users.name = $1`;
+        const dotenv = require('dotenv').config();
+        let { Pool, Client } = require('pg');
+        const pool = new Pool({
+            user: process.env.spidermanUser,
+            host: process.env.spidermanDBURL,
+            database: process.env.spidermanDBName,
+            password: process.env.spidermanPswrd,
+            port: process.env.spidermanDBPort
+        });
+       let userResults = await pool.query(getSpiderEventByNameQuery,[username]);
+       console.log(userResults.rows);
+       return userResults.rows;
+
+
+
+    }
     async createSpidermanEvent (user,msg){
 
         var createSpiderEvent = `INSERT INTO public.spiderevent (user_id,msg,dateposted,uuid) VALUES($1,$2,$3,$4)`;

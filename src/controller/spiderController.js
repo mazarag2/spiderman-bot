@@ -23,5 +23,15 @@ class spiderController {
         res.send(results);
     }
 
+    async getAllEventsByUser(req,res){
+
+        let spiderDaoImpl = new spiderDao();
+        let name = req.params.name;
+        console.log(name);
+        let results = await spiderDaoImpl.getSpiderEventbyUser(name);
+        res.send(results);
+
+    }
+
 }
 module.exports = spiderController;

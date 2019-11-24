@@ -32,7 +32,7 @@ let spiderControllerImpl = new spiderController();
 
 app.get('/users',async (req,res) => {await spiderControllerImpl.getUsers(req,res)});
 app.get('/users/:name',async (req,res) => { await spiderControllerImpl.getUserByName(req,res);});
-
+app.get('/users/:name/events',async (req,res) => {await spiderControllerImpl.getAllEventsByUser(req,res)});
 
 
 bot.on('ready',async  function (evt) {
@@ -61,7 +61,7 @@ bot.on('message', async function (message) {
 
         message.channel.send('I run better than I Swing',{file : './public/milesmorales.gif'});
     }
-    if(messageContents.includes('Raimi') && (messageContents.includes('sucks') || messageContents.includes('sucked'))){
+    if(messageContents.includes('Raimi') && (messageContents.includes('sucks') || messageContents.includes('sucked') || messageContents.includes('suck'))){
 
         await message.reply(process.env.spidermanURL);
 
