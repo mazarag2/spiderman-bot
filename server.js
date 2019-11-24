@@ -30,7 +30,7 @@ let User = require('./src/domain/user');
 let spiderController = require('./src/controller/spiderController');
 let spiderControllerImpl = new spiderController();
 
-app.get('/users',async (req,res) => {await spiderControllerImpl.getUsers(req,res)});
+app.get('/users',async (req,res) => { await spiderControllerImpl.getUsers(req,res)});
 app.get('/users/:name',async (req,res) => { await spiderControllerImpl.getUserByName(req,res);});
 app.get('/users/:name/events',async (req,res) => {await spiderControllerImpl.getAllEventsByUser(req,res)});
 
@@ -47,8 +47,10 @@ bot.on('message', async function (message) {
 
         let discordUser = new User(message.author.username,message.author.id);
         let spiderDao = new spidermanDao();
+        await spiderDao.upsertUser(discordUser);
         await spiderDao.createSpidermanEvent(discordUser,messageContents);
         await spiderDao.updateSpiderProfile(discordUser,messageContents);
+        
     }
 
     if(message.isMentioned(bot.user) && message.author.username !== 'spiderman-bot') {
@@ -56,7 +58,7 @@ bot.on('message', async function (message) {
       let response = await axios.get(`${GIPHY_ENDPOINT}?tag=${searchQuery}&api_key=${GIPHY_KEY}`);
       await message.channel.send(response.data.data.url);
 
-   }
+    }
     if (messageContents.includes('miles morales')){
 
         message.channel.send('I run better than I Swing',{file : './public/milesmorales.gif'});

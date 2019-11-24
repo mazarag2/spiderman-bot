@@ -5,7 +5,7 @@ install:
 - npm install
 - npm install mocha -g
 script:
-- mocha -r esm test/domain
+- npm run test
 after_success:
 - echo Build Succeded
 deploy:

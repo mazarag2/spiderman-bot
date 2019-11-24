@@ -115,6 +115,24 @@ class spidermanDBDAO {
        await pool.query(createSpiderEvent,[user.getId(),spidermanCount,milesmoralesCount]);
 
     }
+    async upsertUser(user) {
+
+        var upsertUserQuery = `INSERT INTO public.users (id,name) VALUES($1,$2) 
+        on conflict (user_id) 
+        DO UPDATE SET name = user.name`;
+        const dotenv = require('dotenv').config();
+        let { Pool, Client } = require('pg');
+        const pool = new Pool({
+            user: process.env.spidermanUser,
+            host: process.env.spidermanDBURL,
+            database: process.env.spidermanDBName,
+            password: process.env.spidermanPswrd,
+            port: process.env.spidermanDBPort
+        });
+
+       await pool.query(upsertUserQuery,[user.getId(),user.getName()]);
+
+    }
 
 }
 module.exports = spidermanDBDAO;
