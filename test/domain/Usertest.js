@@ -11,7 +11,7 @@ describe('User', function() {
 
 		it('should return values for a uSer when insantiated',function(){
 			
-            let userTest = new User('mike',123);
+            let userTest = new User('mike',123,"2019-11-24T07:54:08.473Z");
             expect(userTest.getId()).to.equal(123);
             expect(userTest.getName()).to.equal('mike');
 

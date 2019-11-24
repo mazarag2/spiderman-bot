@@ -9,7 +9,7 @@ class SpiderProfile {
         return this.spidermanCount;
     }
     getId(){
-        return this.id;
+        return this.userId;
     }
     getMilesCount(){
         return this.milesCount;

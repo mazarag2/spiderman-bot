@@ -9,7 +9,7 @@ class SpiderEvent {
         return this.msg;
     }
     getId(){
-        return this.id;
+        return this.userId;
     }
     getDatePosted(){
         return this.datePosted;

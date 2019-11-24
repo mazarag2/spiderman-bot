@@ -1,13 +1,13 @@
 let Discord = require('discord.js');
 const dotenv = require('dotenv').config();
 let express = require("express");
-app = express();
+let app = express();
 let port = process.env.PORT || 8080;
 app.listen(port);
-
+console.log(port);
 let axios = require('axios');
 var logger = require('winston');
-
+const uuidv1 = require('uuid/v1');
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
     colorize: true
@@ -27,6 +27,13 @@ let GIPHY_ENDPOINT = process.env.GiphySearch;
 
 let spidermanDao = require('./src/dao/spidermanDBDAO');
 let User = require('./src/domain/user');
+let spiderController = require('./src/controller/spiderController');
+let spiderControllerImpl = new spiderController();
+
+app.get('/users',async (req,res) => {await spiderControllerImpl.getUsers(req,res)});
+app.get('/users/:name',async (req,res) => { await spiderControllerImpl.getUserByName(req,res);});
+
+
 
 bot.on('ready',async  function (evt) {
     logger.info('Connected');

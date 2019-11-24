@@ -18,9 +18,45 @@ class spidermanDBDAO {
        await pool.query(createUserQuery,[user.getId(),user.getName()]);
 
     }
+    async getUsers (){
+
+        var getUserByNameQuery = `SELECT * from public.users`;
+        const dotenv = require('dotenv').config();
+        let { Pool, Client } = require('pg');
+        const pool = new Pool({
+            user: process.env.spidermanUser,
+            host: process.env.spidermanDBURL,
+            database: process.env.spidermanDBName,
+            password: process.env.spidermanPswrd,
+            port: process.env.spidermanDBPort
+        });
+       let userResults = await pool.query(getUserByNameQuery);
+       console.log(userResults.rows);
+       return userResults.rows;
+
+
+    }
+    async getUserByName (userName){
+
+        var getUserByNameQuery = `SELECT * from public.users where name = $1`;
+        const dotenv = require('dotenv').config();
+        let { Pool, Client } = require('pg');
+        const pool = new Pool({
+            user: process.env.spidermanUser,
+            host: process.env.spidermanDBURL,
+            database: process.env.spidermanDBName,
+            password: process.env.spidermanPswrd,
+            port: process.env.spidermanDBPort
+        });
+       let userResults = await pool.query(getUserByNameQuery,[userName]);
+       console.log(userResults.rows);
+       return userResults.rows[0];
+
+    }
     async createSpidermanEvent (user,msg){
 
-        var createSpiderEvent = `INSERT INTO public.spiderevent (user_id,msg,dateposted) VALUES($1,$2,$3)`;
+        var createSpiderEvent = `INSERT INTO public.spiderevent (user_id,msg,dateposted,uuid) VALUES($1,$2,$3,$4)`;
+        const uuidv1 = require('uuid/v1');
         const dotenv = require('dotenv').config();
         let { Pool, Client } = require('pg');
         const pool = new Pool({
@@ -32,7 +68,7 @@ class spidermanDBDAO {
         });
        let timestamp = new Date();
        console.log(timestamp);
-       await pool.query(createSpiderEvent,[user.getId(),msg,timestamp]);
+       await pool.query(createSpiderEvent,[user.getId(),msg,timestamp,uuidv1()]);
 
     }
     async updateSpiderProfile(user,msg){
