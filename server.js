@@ -1,10 +1,11 @@
 let Discord = require('discord.js');
 const dotenv = require('dotenv').config();
 let express = require("express");
+var cors = require('cors')
 let app = express();
-let port = process.env.PORT || 8080;
+let port = process.env.PORT || 9090;
 app.listen(port);
-console.log(port);
+app.use(cors())
 let axios = require('axios');
 var logger = require('winston');
 const uuidv1 = require('uuid/v1');
