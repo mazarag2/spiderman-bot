@@ -31,9 +31,9 @@ let User = require('./src/domain/user');
 let spiderController = require('./src/controller/spiderController');
 let spiderControllerImpl = new spiderController();
 
-app.get('/users',async (req,res) => { await spiderControllerImpl.getUsers(req,res)});
-app.get('/users/:name',async (req,res) => { await spiderControllerImpl.getUserByName(req,res);});
-app.get('/users/:name/events',async (req,res) => {await spiderControllerImpl.getAllEventsByUser(req,res)});
+app.get('/users',cors(),async (req,res) => { await spiderControllerImpl.getUsers(req,res)});
+app.get('/users/:name',cors(),async (req,res) => { await spiderControllerImpl.getUserByName(req,res);});
+app.get('/users/:name/events',cors(),async (req,res) => {await spiderControllerImpl.getAllEventsByUser(req,res)});
 
 
 bot.on('ready',async  function (evt) {
