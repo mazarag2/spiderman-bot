@@ -31,6 +31,9 @@ let User = require('./src/domain/user');
 let spiderController = require('./src/controller/spiderController');
 let spiderControllerImpl = new spiderController();
 
+const isMessageSpiderman = messageContents.includes('spiderman') || (messageContents.includes('spider') && messageContents.includes('man'));
+
+
 app.get('/users',cors(),async (req,res) => { await spiderControllerImpl.getUsers(req,res)});
 app.get('/users/:name',cors(),async (req,res) => { await spiderControllerImpl.getUserByName(req,res);});
 app.get('/users/:name/events',cors(),async (req,res) => {await spiderControllerImpl.getAllEventsByUser(req,res)});
@@ -44,7 +47,7 @@ bot.on('ready',async  function (evt) {
 bot.on('message', async function (message) {
 
     let messageContents = message.content;
-    if(messageContents.includes('spiderman')){
+    if(isMessageSpiderman){
 
         let discordUser = new User(message.author.username,message.author.id);
         let spiderDao = new spidermanDao();
