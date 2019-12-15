@@ -83,6 +83,9 @@ bot.on('message', async function (message) {
         await message.reply(process.env.pizzaTimeURL);
 
      }
+     if(messageContents.includes('soul') && messageContents.includes('stone')){
+         await message.reply(process.env.tobySoulStoneURL);
+     }
 
      
 
