@@ -74,7 +74,7 @@ bot.on('message', async function (message) {
         await message.reply(process.env.spidermanURL);
 
      }
-     else if((messageContents.includes('Im') && messageContents.includes('You')) || (messageContents.includes('Im SpiderMan'))){
+     else if((messageContents.includes('Im You')) || (messageContents.includes('Im SpiderMan'))){
 
         await message.reply('Hmm',{file : './public/yourepointingatme.gif'});
      }
