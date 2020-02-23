@@ -24,6 +24,10 @@ let GIPHY_KEY = process.env.GIPHY_KEY;
 
 let searchQuery = `spiderman`
 
+const MotivationQuery = "you can do it";
+
+const INTERVAL_TIME = 86400000;
+
 let GIPHY_ENDPOINT = process.env.GiphySearch;
 
 let spidermanDao = require('./src/dao/spidermanDBDAO');
@@ -36,12 +40,16 @@ app.get('/users/:name',cors(),async (req,res) => { await spiderControllerImpl.ge
 app.get('/users/:name/events',cors(),async (req,res) => {await spiderControllerImpl.getAllEventsByUser(req,res)});
 
 
+
 bot.on('ready',async  function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
+    let user =  await bot.fetchUser(process.env.tonyID,false);
+    await sendMyBoiSomeMotivation(user);
 });
 bot.on('message', async function (message) {
+
 
     let messageContents = message.content;
     if(isMessageSpiderman(messageContents)){
@@ -60,6 +68,7 @@ bot.on('message', async function (message) {
       await message.channel.send(response.data.data.url);
 
     }
+
     if (messageContents.includes('miles morales')){
 
         message.channel.send('I run better than I Swing',{file : './public/milesmorales.gif'});
@@ -92,6 +101,16 @@ bot.on('message', async function (message) {
 
 });
 
+
+async function sendMyBoiSomeMotivation(user) {
+
+    setInterval(async () => {
+        
+        let response = await axios.get(`${GIPHY_ENDPOINT}?tag=${MotivationQuery}&api_key=${GIPHY_KEY}`);
+        await user.send(response.data.data.url);
+
+    },INTERVAL_TIME,user)
+}
 
 function isMessageSpiderman(messageContents){
     return messageContents.includes('spiderman') || (messageContents.includes('spider') && messageContents.includes('man'));
