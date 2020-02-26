@@ -87,7 +87,7 @@ bot.on('message', async function (message) {
 
         await message.reply('Hmm',{file : './public/yourepointingatme.gif'});
      }
-    else if(messageContents.includes('pizza')){
+    else if(messageContents.includes('pizza') || messageContents.includes('Pizza')){
 
         await message.reply(process.env.pizzaTimeURL);
 
